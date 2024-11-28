@@ -31,12 +31,13 @@
             ProdItemLbl = new Label();
             QtdeItemLbl = new Label();
             cmbBoxProduto = new ComboBox();
-            txtQuantidade = new TextBox();
             pnlAcaoPedido = new Panel();
             btnExcluirPedido = new Button();
             btnCancelarPedido = new Button();
-            btnSalvarItem = new Button();
+            btnAddProduto = new Button();
+            numericUpDownQuantidade = new NumericUpDown();
             pnlAcaoPedido.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDownQuantidade).BeginInit();
             SuspendLayout();
             // 
             // ProdItemLbl
@@ -51,7 +52,7 @@
             // QtdeItemLbl
             // 
             QtdeItemLbl.AutoSize = true;
-            QtdeItemLbl.Location = new Point(299, 28);
+            QtdeItemLbl.Location = new Point(285, 28);
             QtdeItemLbl.Name = "QtdeItemLbl";
             QtdeItemLbl.Size = new Size(87, 20);
             QtdeItemLbl.TabIndex = 1;
@@ -65,24 +66,17 @@
             cmbBoxProduto.Size = new Size(214, 28);
             cmbBoxProduto.TabIndex = 2;
             // 
-            // txtQuantidade
-            // 
-            txtQuantidade.Location = new Point(299, 63);
-            txtQuantidade.Name = "txtQuantidade";
-            txtQuantidade.Size = new Size(125, 27);
-            txtQuantidade.TabIndex = 3;
-            // 
             // pnlAcaoPedido
             // 
             pnlAcaoPedido.AutoSize = true;
             pnlAcaoPedido.Controls.Add(btnExcluirPedido);
             pnlAcaoPedido.Controls.Add(btnCancelarPedido);
-            pnlAcaoPedido.Controls.Add(btnSalvarItem);
+            pnlAcaoPedido.Controls.Add(btnAddProduto);
             pnlAcaoPedido.Dock = DockStyle.Bottom;
             pnlAcaoPedido.Location = new Point(0, 200);
             pnlAcaoPedido.Margin = new Padding(3, 4, 3, 4);
             pnlAcaoPedido.Name = "pnlAcaoPedido";
-            pnlAcaoPedido.Size = new Size(495, 39);
+            pnlAcaoPedido.Size = new Size(606, 39);
             pnlAcaoPedido.TabIndex = 6;
             // 
             // btnExcluirPedido
@@ -97,39 +91,45 @@
             // 
             // btnCancelarPedido
             // 
-            btnCancelarPedido.Location = new Point(404, 3);
+            btnCancelarPedido.Location = new Point(508, 4);
             btnCancelarPedido.Margin = new Padding(3, 4, 3, 4);
             btnCancelarPedido.Name = "btnCancelarPedido";
             btnCancelarPedido.Size = new Size(86, 31);
             btnCancelarPedido.TabIndex = 1;
             btnCancelarPedido.Text = "Cancelar";
             btnCancelarPedido.UseVisualStyleBackColor = true;
-            btnCancelarPedido.Click += btnCancelarPedido_Click;
             // 
-            // btnSalvarItem
+            // btnAddProduto
             // 
-            btnSalvarItem.Location = new Point(312, 3);
-            btnSalvarItem.Margin = new Padding(3, 4, 3, 4);
-            btnSalvarItem.Name = "btnSalvarItem";
-            btnSalvarItem.Size = new Size(86, 31);
-            btnSalvarItem.TabIndex = 0;
-            btnSalvarItem.Text = "Salvar";
-            btnSalvarItem.UseVisualStyleBackColor = true;
-            btnSalvarItem.Click += btnSalvarItem_Click_1;
+            btnAddProduto.Location = new Point(398, 4);
+            btnAddProduto.Margin = new Padding(3, 4, 3, 4);
+            btnAddProduto.Name = "btnAddProduto";
+            btnAddProduto.Size = new Size(104, 31);
+            btnAddProduto.TabIndex = 0;
+            btnAddProduto.Text = "Adicionar";
+            btnAddProduto.UseVisualStyleBackColor = true;
+            // 
+            // numericUpDownQuantidade
+            // 
+            numericUpDownQuantidade.Location = new Point(285, 59);
+            numericUpDownQuantidade.Name = "numericUpDownQuantidade";
+            numericUpDownQuantidade.Size = new Size(150, 27);
+            numericUpDownQuantidade.TabIndex = 7;
             // 
             // ItemForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(495, 239);
+            ClientSize = new Size(606, 239);
+            Controls.Add(numericUpDownQuantidade);
             Controls.Add(pnlAcaoPedido);
-            Controls.Add(txtQuantidade);
             Controls.Add(cmbBoxProduto);
             Controls.Add(QtdeItemLbl);
             Controls.Add(ProdItemLbl);
             Name = "ItemForm";
             Text = "ItemForm";
             pnlAcaoPedido.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)numericUpDownQuantidade).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -139,10 +139,10 @@
         private Label ProdItemLbl;
         private Label QtdeItemLbl;
         private ComboBox cmbBoxProduto;
-        private TextBox txtQuantidade;
         private Panel pnlAcaoPedido;
         private Button btnExcluirPedido;
         private Button btnCancelarPedido;
-        private Button btnSalvarItem;
+        private Button btnAddProduto;
+        private NumericUpDown numericUpDownQuantidade;
     }
 }

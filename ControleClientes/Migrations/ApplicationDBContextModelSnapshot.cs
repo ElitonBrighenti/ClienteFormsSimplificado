@@ -165,35 +165,6 @@ namespace ControleClientes.Migrations
                     b.ToTable("Enderecos");
                 });
 
-            modelBuilder.Entity("ControleClientes.Entidades.Item", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("PedidoId")
-                        .HasColumnType("integer");
-
-                    b.Property<decimal>("PrecoUnitario")
-                        .HasColumnType("numeric");
-
-                    b.Property<int>("ProdutoId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Quantidade")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PedidoId");
-
-                    b.HasIndex("ProdutoId");
-
-                    b.ToTable("Itens");
-                });
-
             modelBuilder.Entity("ControleClientes.Entidades.Pedido", b =>
                 {
                     b.Property<int>("Id")
@@ -208,6 +179,12 @@ namespace ControleClientes.Migrations
                     b.Property<DateTime>("DataPedido")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<int>("ProdutoId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Quantidade")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("text");
@@ -215,6 +192,8 @@ namespace ControleClientes.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ClienteId");
+
+                    b.HasIndex("ProdutoId");
 
                     b.ToTable("Pedidos");
                 });
@@ -272,25 +251,6 @@ namespace ControleClientes.Migrations
                     b.Navigation("Cidade");
                 });
 
-            modelBuilder.Entity("ControleClientes.Entidades.Item", b =>
-                {
-                    b.HasOne("ControleClientes.Entidades.Pedido", "Pedido")
-                        .WithMany("Itens")
-                        .HasForeignKey("PedidoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ControleClientes.Entidades.Produto", "Produto")
-                        .WithMany("Itens")
-                        .HasForeignKey("ProdutoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Pedido");
-
-                    b.Navigation("Produto");
-                });
-
             modelBuilder.Entity("ControleClientes.Entidades.Pedido", b =>
                 {
                     b.HasOne("ControleClientes.Entidades.Cliente", "Cliente")
@@ -299,17 +259,15 @@ namespace ControleClientes.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("ControleClientes.Entidades.Produto", "Produto")
+                        .WithMany()
+                        .HasForeignKey("ProdutoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Cliente");
-                });
 
-            modelBuilder.Entity("ControleClientes.Entidades.Pedido", b =>
-                {
-                    b.Navigation("Itens");
-                });
-
-            modelBuilder.Entity("ControleClientes.Entidades.Produto", b =>
-                {
-                    b.Navigation("Itens");
+                    b.Navigation("Produto");
                 });
 #pragma warning restore 612, 618
         }

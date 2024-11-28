@@ -36,11 +36,9 @@
             tabPedidoConsulta = new TabPage();
             gridPedidos = new DataGridView();
             GridProdId = new DataGridViewTextBoxColumn();
-            GridProdNome = new DataGridViewTextBoxColumn();
             GridProdDesc = new DataGridViewTextBoxColumn();
+            GridProdNome = new DataGridViewTextBoxColumn();
             GridProdPreco = new DataGridViewTextBoxColumn();
-            GridProdQuantidade = new DataGridViewTextBoxColumn();
-            GridProdCat = new DataGridViewTextBoxColumn();
             pnlAcao = new Panel();
             btnVisualizar = new Button();
             btnNovoProd = new Button();
@@ -48,6 +46,11 @@
             btnPesquisar = new Button();
             txtPesquisa = new TextBox();
             tabPedidoCadastro = new TabPage();
+            numericUpDownQuantidade = new NumericUpDown();
+            cmbBoxProduto = new ComboBox();
+            QtdeItemLbl = new Label();
+            ProdItemLbl = new Label();
+            btnAddItem = new Button();
             DataPedLbl = new Label();
             NomeCliePedLbl = new Label();
             cmbBoxStatus = new ComboBox();
@@ -55,14 +58,11 @@
             dateTimePickerDataPedido = new DateTimePicker();
             cmbBoxCliente = new ComboBox();
             panel1 = new Panel();
-            gridItensPedido = new DataGridView();
+            gridProdutosPedido = new DataGridView();
             dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn3 = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn4 = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn5 = new DataGridViewTextBoxColumn();
-            pnlAcaoItem = new Panel();
-            btVisuaItem = new Button();
-            btnAddItem = new Button();
             tabPedido = new TabControl();
             pnlAcaoPedido.SuspendLayout();
             tabPedidoConsulta.SuspendLayout();
@@ -70,22 +70,22 @@
             pnlAcao.SuspendLayout();
             pnlPesquisa.SuspendLayout();
             tabPedidoCadastro.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDownQuantidade).BeginInit();
             panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)gridItensPedido).BeginInit();
-            pnlAcaoItem.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)gridProdutosPedido).BeginInit();
             tabPedido.SuspendLayout();
             SuspendLayout();
             // 
             // btnSalvarPedido
             // 
-            btnSalvarPedido.Location = new Point(702, 3);
+            btnSalvarPedido.Location = new Point(745, 2);
             btnSalvarPedido.Margin = new Padding(3, 4, 3, 4);
             btnSalvarPedido.Name = "btnSalvarPedido";
             btnSalvarPedido.Size = new Size(86, 31);
             btnSalvarPedido.TabIndex = 0;
             btnSalvarPedido.Text = "Salvar";
             btnSalvarPedido.UseVisualStyleBackColor = true;
-            btnSalvarPedido.Click += btnSalvarPedido_Click_1;
+            btnSalvarPedido.Click += btnSalvarPedido_Click;
             // 
             // pnlAcaoPedido
             // 
@@ -93,10 +93,10 @@
             pnlAcaoPedido.Controls.Add(btnCancelarPedido);
             pnlAcaoPedido.Controls.Add(btnSalvarPedido);
             pnlAcaoPedido.Dock = DockStyle.Bottom;
-            pnlAcaoPedido.Location = new Point(3, 425);
+            pnlAcaoPedido.Location = new Point(3, 485);
             pnlAcaoPedido.Margin = new Padding(3, 4, 3, 4);
             pnlAcaoPedido.Name = "pnlAcaoPedido";
-            pnlAcaoPedido.Size = new Size(890, 37);
+            pnlAcaoPedido.Size = new Size(928, 37);
             pnlAcaoPedido.TabIndex = 5;
             // 
             // btnExcluirPedido
@@ -111,14 +111,14 @@
             // 
             // btnCancelarPedido
             // 
-            btnCancelarPedido.Location = new Point(794, 3);
+            btnCancelarPedido.Location = new Point(837, 3);
             btnCancelarPedido.Margin = new Padding(3, 4, 3, 4);
             btnCancelarPedido.Name = "btnCancelarPedido";
             btnCancelarPedido.Size = new Size(86, 31);
             btnCancelarPedido.TabIndex = 1;
             btnCancelarPedido.Text = "Cancelar";
             btnCancelarPedido.UseVisualStyleBackColor = true;
-            btnCancelarPedido.Click += btnCancelarPedido_Click_1;
+            btnCancelarPedido.Click += btnCancelarPedido_Click;
             // 
             // tabPedidoConsulta
             // 
@@ -129,23 +129,23 @@
             tabPedidoConsulta.Margin = new Padding(3, 4, 3, 4);
             tabPedidoConsulta.Name = "tabPedidoConsulta";
             tabPedidoConsulta.Padding = new Padding(3, 4, 3, 4);
-            tabPedidoConsulta.Size = new Size(896, 466);
+            tabPedidoConsulta.Size = new Size(934, 526);
             tabPedidoConsulta.TabIndex = 0;
             tabPedidoConsulta.Text = "Consulta";
             tabPedidoConsulta.UseVisualStyleBackColor = true;
+            tabPedidoConsulta.Click += tabPedidoConsulta_Click;
             // 
             // gridPedidos
             // 
             gridPedidos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             gridPedidos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            gridPedidos.Columns.AddRange(new DataGridViewColumn[] { GridProdId, GridProdNome, GridProdDesc, GridProdPreco, GridProdQuantidade, GridProdCat });
-            gridPedidos.Dock = DockStyle.Fill;
+            gridPedidos.Columns.AddRange(new DataGridViewColumn[] { GridProdId, GridProdDesc, GridProdNome, GridProdPreco });
             gridPedidos.Location = new Point(3, 45);
             gridPedidos.Margin = new Padding(3, 4, 3, 4);
             gridPedidos.Name = "gridPedidos";
             gridPedidos.RowHeadersWidth = 20;
             gridPedidos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            gridPedidos.Size = new Size(890, 376);
+            gridPedidos.Size = new Size(928, 210);
             gridPedidos.TabIndex = 7;
             // 
             // GridProdId
@@ -154,50 +154,38 @@
             GridProdId.MinimumWidth = 6;
             GridProdId.Name = "GridProdId";
             // 
-            // GridProdNome
-            // 
-            GridProdNome.HeaderText = "Nome";
-            GridProdNome.MinimumWidth = 6;
-            GridProdNome.Name = "GridProdNome";
-            // 
             // GridProdDesc
             // 
-            GridProdDesc.HeaderText = "Descrição";
+            GridProdDesc.HeaderText = "Cliente";
             GridProdDesc.MinimumWidth = 6;
             GridProdDesc.Name = "GridProdDesc";
             // 
+            // GridProdNome
+            // 
+            GridProdNome.HeaderText = "Data Pedido";
+            GridProdNome.MinimumWidth = 6;
+            GridProdNome.Name = "GridProdNome";
+            // 
             // GridProdPreco
             // 
-            GridProdPreco.HeaderText = "Preco";
+            GridProdPreco.HeaderText = "Status";
             GridProdPreco.MinimumWidth = 6;
             GridProdPreco.Name = "GridProdPreco";
-            // 
-            // GridProdQuantidade
-            // 
-            GridProdQuantidade.HeaderText = "Quantidade";
-            GridProdQuantidade.MinimumWidth = 6;
-            GridProdQuantidade.Name = "GridProdQuantidade";
-            // 
-            // GridProdCat
-            // 
-            GridProdCat.HeaderText = "Categoria";
-            GridProdCat.MinimumWidth = 6;
-            GridProdCat.Name = "GridProdCat";
             // 
             // pnlAcao
             // 
             pnlAcao.Controls.Add(btnVisualizar);
             pnlAcao.Controls.Add(btnNovoProd);
             pnlAcao.Dock = DockStyle.Bottom;
-            pnlAcao.Location = new Point(3, 421);
+            pnlAcao.Location = new Point(3, 481);
             pnlAcao.Margin = new Padding(3, 4, 3, 4);
             pnlAcao.Name = "pnlAcao";
-            pnlAcao.Size = new Size(890, 41);
+            pnlAcao.Size = new Size(928, 41);
             pnlAcao.TabIndex = 6;
             // 
             // btnVisualizar
             // 
-            btnVisualizar.Location = new Point(702, 7);
+            btnVisualizar.Location = new Point(745, 5);
             btnVisualizar.Margin = new Padding(3, 4, 3, 4);
             btnVisualizar.Name = "btnVisualizar";
             btnVisualizar.Size = new Size(86, 31);
@@ -208,7 +196,7 @@
             // 
             // btnNovoProd
             // 
-            btnNovoProd.Location = new Point(794, 7);
+            btnNovoProd.Location = new Point(837, 6);
             btnNovoProd.Margin = new Padding(3, 4, 3, 4);
             btnNovoProd.Name = "btnNovoProd";
             btnNovoProd.Size = new Size(86, 31);
@@ -225,7 +213,7 @@
             pnlPesquisa.Location = new Point(3, 4);
             pnlPesquisa.Margin = new Padding(3, 4, 3, 4);
             pnlPesquisa.Name = "pnlPesquisa";
-            pnlPesquisa.Size = new Size(890, 41);
+            pnlPesquisa.Size = new Size(928, 41);
             pnlPesquisa.TabIndex = 5;
             // 
             // btnPesquisar
@@ -249,6 +237,11 @@
             // 
             // tabPedidoCadastro
             // 
+            tabPedidoCadastro.Controls.Add(numericUpDownQuantidade);
+            tabPedidoCadastro.Controls.Add(cmbBoxProduto);
+            tabPedidoCadastro.Controls.Add(QtdeItemLbl);
+            tabPedidoCadastro.Controls.Add(ProdItemLbl);
+            tabPedidoCadastro.Controls.Add(btnAddItem);
             tabPedidoCadastro.Controls.Add(DataPedLbl);
             tabPedidoCadastro.Controls.Add(NomeCliePedLbl);
             tabPedidoCadastro.Controls.Add(cmbBoxStatus);
@@ -261,15 +254,58 @@
             tabPedidoCadastro.Margin = new Padding(3, 4, 3, 4);
             tabPedidoCadastro.Name = "tabPedidoCadastro";
             tabPedidoCadastro.Padding = new Padding(3, 4, 3, 4);
-            tabPedidoCadastro.Size = new Size(896, 466);
+            tabPedidoCadastro.Size = new Size(934, 526);
             tabPedidoCadastro.TabIndex = 1;
             tabPedidoCadastro.Text = "Cadastro";
             tabPedidoCadastro.UseVisualStyleBackColor = true;
             // 
+            // numericUpDownQuantidade
+            // 
+            numericUpDownQuantidade.Location = new Point(292, 153);
+            numericUpDownQuantidade.Name = "numericUpDownQuantidade";
+            numericUpDownQuantidade.Size = new Size(92, 27);
+            numericUpDownQuantidade.TabIndex = 24;
+            // 
+            // cmbBoxProduto
+            // 
+            cmbBoxProduto.FormattingEnabled = true;
+            cmbBoxProduto.Location = new Point(23, 152);
+            cmbBoxProduto.Name = "cmbBoxProduto";
+            cmbBoxProduto.Size = new Size(231, 28);
+            cmbBoxProduto.TabIndex = 23;
+            // 
+            // QtdeItemLbl
+            // 
+            QtdeItemLbl.AutoSize = true;
+            QtdeItemLbl.Location = new Point(292, 119);
+            QtdeItemLbl.Name = "QtdeItemLbl";
+            QtdeItemLbl.Size = new Size(87, 20);
+            QtdeItemLbl.TabIndex = 22;
+            QtdeItemLbl.Text = "Quantidade";
+            // 
+            // ProdItemLbl
+            // 
+            ProdItemLbl.AutoSize = true;
+            ProdItemLbl.Location = new Point(23, 119);
+            ProdItemLbl.Name = "ProdItemLbl";
+            ProdItemLbl.Size = new Size(129, 20);
+            ProdItemLbl.TabIndex = 21;
+            ProdItemLbl.Text = "Nome do Produto";
+            // 
+            // btnAddItem
+            // 
+            btnAddItem.Location = new Point(411, 150);
+            btnAddItem.Margin = new Padding(3, 4, 3, 4);
+            btnAddItem.Name = "btnAddItem";
+            btnAddItem.Size = new Size(128, 31);
+            btnAddItem.TabIndex = 1;
+            btnAddItem.Text = "Adicionar Item";
+            btnAddItem.UseVisualStyleBackColor = true;
+            // 
             // DataPedLbl
             // 
             DataPedLbl.AutoSize = true;
-            DataPedLbl.Location = new Point(318, 21);
+            DataPedLbl.Location = new Point(248, 21);
             DataPedLbl.Name = "DataPedLbl";
             DataPedLbl.Size = new Size(91, 20);
             DataPedLbl.TabIndex = 19;
@@ -278,7 +314,7 @@
             // NomeCliePedLbl
             // 
             NomeCliePedLbl.AutoSize = true;
-            NomeCliePedLbl.Location = new Point(63, 21);
+            NomeCliePedLbl.Location = new Point(23, 21);
             NomeCliePedLbl.Name = "NomeCliePedLbl";
             NomeCliePedLbl.Size = new Size(100, 20);
             NomeCliePedLbl.TabIndex = 18;
@@ -287,7 +323,7 @@
             // cmbBoxStatus
             // 
             cmbBoxStatus.FormattingEnabled = true;
-            cmbBoxStatus.Location = new Point(653, 53);
+            cmbBoxStatus.Location = new Point(720, 53);
             cmbBoxStatus.Name = "cmbBoxStatus";
             cmbBoxStatus.Size = new Size(184, 28);
             cmbBoxStatus.TabIndex = 17;
@@ -295,7 +331,7 @@
             // StatusPedLbl
             // 
             StatusPedLbl.AutoSize = true;
-            StatusPedLbl.Location = new Point(653, 21);
+            StatusPedLbl.Location = new Point(720, 21);
             StatusPedLbl.Name = "StatusPedLbl";
             StatusPedLbl.Size = new Size(99, 20);
             StatusPedLbl.TabIndex = 16;
@@ -303,7 +339,7 @@
             // 
             // dateTimePickerDataPedido
             // 
-            dateTimePickerDataPedido.Location = new Point(318, 54);
+            dateTimePickerDataPedido.Location = new Point(248, 54);
             dateTimePickerDataPedido.Name = "dateTimePickerDataPedido";
             dateTimePickerDataPedido.Size = new Size(250, 27);
             dateTimePickerDataPedido.TabIndex = 15;
@@ -311,32 +347,32 @@
             // cmbBoxCliente
             // 
             cmbBoxCliente.FormattingEnabled = true;
-            cmbBoxCliente.Location = new Point(63, 53);
+            cmbBoxCliente.Location = new Point(23, 53);
             cmbBoxCliente.Name = "cmbBoxCliente";
             cmbBoxCliente.Size = new Size(184, 28);
             cmbBoxCliente.TabIndex = 14;
             // 
             // panel1
             // 
-            panel1.Controls.Add(gridItensPedido);
-            panel1.Controls.Add(pnlAcaoItem);
-            panel1.Location = new Point(0, 122);
+            panel1.Controls.Add(gridProdutosPedido);
+            panel1.Location = new Point(0, 199);
             panel1.Name = "panel1";
-            panel1.Size = new Size(892, 300);
+            panel1.Size = new Size(934, 283);
             panel1.TabIndex = 13;
             // 
-            // gridItensPedido
+            // gridProdutosPedido
             // 
-            gridItensPedido.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            gridItensPedido.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            gridItensPedido.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn2, dataGridViewTextBoxColumn3, dataGridViewTextBoxColumn4, dataGridViewTextBoxColumn5 });
-            gridItensPedido.Location = new Point(0, 38);
-            gridItensPedido.Margin = new Padding(3, 4, 3, 4);
-            gridItensPedido.Name = "gridItensPedido";
-            gridItensPedido.RowHeadersWidth = 20;
-            gridItensPedido.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            gridItensPedido.Size = new Size(892, 262);
-            gridItensPedido.TabIndex = 12;
+            gridProdutosPedido.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            gridProdutosPedido.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            gridProdutosPedido.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn2, dataGridViewTextBoxColumn3, dataGridViewTextBoxColumn4, dataGridViewTextBoxColumn5 });
+            gridProdutosPedido.Dock = DockStyle.Fill;
+            gridProdutosPedido.Location = new Point(0, 0);
+            gridProdutosPedido.Margin = new Padding(3, 4, 3, 4);
+            gridProdutosPedido.Name = "gridProdutosPedido";
+            gridProdutosPedido.RowHeadersWidth = 20;
+            gridProdutosPedido.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            gridProdutosPedido.Size = new Size(934, 283);
+            gridProdutosPedido.TabIndex = 12;
             // 
             // dataGridViewTextBoxColumn2
             // 
@@ -362,37 +398,6 @@
             dataGridViewTextBoxColumn5.MinimumWidth = 6;
             dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
             // 
-            // pnlAcaoItem
-            // 
-            pnlAcaoItem.Controls.Add(btVisuaItem);
-            pnlAcaoItem.Controls.Add(btnAddItem);
-            pnlAcaoItem.Dock = DockStyle.Top;
-            pnlAcaoItem.Location = new Point(0, 0);
-            pnlAcaoItem.Name = "pnlAcaoItem";
-            pnlAcaoItem.Size = new Size(892, 38);
-            pnlAcaoItem.TabIndex = 13;
-            // 
-            // btVisuaItem
-            // 
-            btVisuaItem.Location = new Point(624, 1);
-            btVisuaItem.Margin = new Padding(3, 4, 3, 4);
-            btVisuaItem.Name = "btVisuaItem";
-            btVisuaItem.Size = new Size(128, 31);
-            btVisuaItem.TabIndex = 2;
-            btVisuaItem.Text = "Visualizar Item";
-            btVisuaItem.UseVisualStyleBackColor = true;
-            // 
-            // btnAddItem
-            // 
-            btnAddItem.Location = new Point(758, 1);
-            btnAddItem.Margin = new Padding(3, 4, 3, 4);
-            btnAddItem.Name = "btnAddItem";
-            btnAddItem.Size = new Size(128, 31);
-            btnAddItem.TabIndex = 1;
-            btnAddItem.Text = "Adicionar Item";
-            btnAddItem.UseVisualStyleBackColor = true;
-            btnAddItem.Click += btnAddItem_Click_1;
-            // 
             // tabPedido
             // 
             tabPedido.Controls.Add(tabPedidoConsulta);
@@ -402,14 +407,14 @@
             tabPedido.Margin = new Padding(3, 4, 3, 4);
             tabPedido.Name = "tabPedido";
             tabPedido.SelectedIndex = 0;
-            tabPedido.Size = new Size(904, 499);
+            tabPedido.Size = new Size(942, 559);
             tabPedido.TabIndex = 3;
             // 
             // PedidoForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(904, 499);
+            ClientSize = new Size(942, 559);
             Controls.Add(tabPedido);
             Name = "PedidoForm";
             Text = "PedidoForm";
@@ -422,9 +427,9 @@
             pnlPesquisa.PerformLayout();
             tabPedidoCadastro.ResumeLayout(false);
             tabPedidoCadastro.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDownQuantidade).EndInit();
             panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)gridItensPedido).EndInit();
-            pnlAcaoItem.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)gridProdutosPedido).EndInit();
             tabPedido.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -440,12 +445,6 @@
         private TextBox textBoxDescProd;
         private TabPage tabProdutoConsulta;
         private DataGridView gridPedidos;
-        private DataGridViewTextBoxColumn GridProdId;
-        private DataGridViewTextBoxColumn GridProdNome;
-        private DataGridViewTextBoxColumn GridProdDesc;
-        private DataGridViewTextBoxColumn GridProdPreco;
-        private DataGridViewTextBoxColumn GridProdQuantidade;
-        private DataGridViewTextBoxColumn GridProdCat;
         private Panel pnlAcao;
         private Button btnVisualizar;
         private Button btnNovoProd;
@@ -453,12 +452,10 @@
         private Button btnPesquisar;
         private TextBox txtPesquisa;
         private TabPage tabPedidoCadastro;
-        private DataGridView gridItensPedido;
+        private DataGridView gridProdutosPedido;
         private TabControl tabPedido;
         private Panel panel1;
-        private Panel pnlAcaoItem;
         private Button btnAddItem;
-        private Button btVisuaItem;
         private ComboBox cmbBoxCliente;
         private Button btnExcluirPedido;
         private ComboBox cmbBoxStatus;
@@ -471,5 +468,13 @@
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private DataGridViewTextBoxColumn GridProdId;
+        private DataGridViewTextBoxColumn GridProdDesc;
+        private DataGridViewTextBoxColumn GridProdNome;
+        private DataGridViewTextBoxColumn GridProdPreco;
+        private NumericUpDown numericUpDownQuantidade;
+        private ComboBox cmbBoxProduto;
+        private Label QtdeItemLbl;
+        private Label ProdItemLbl;
     }
 }

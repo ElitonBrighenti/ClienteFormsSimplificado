@@ -16,7 +16,10 @@ namespace ControleClientes.Repository
         {
             _context = context;
         }
-
+        public List<Pedido> ReadAll()
+        {
+            return _context.Pedidos.Include(p => p.Produto).ToList(); // Inclui o produto para carregar os dados completos
+        }
         public void Create(Pedido pedido)
         {
             _context.Pedidos.Add(pedido);
@@ -26,9 +29,9 @@ namespace ControleClientes.Repository
         public Pedido GetById(int id)
         {
             return _context.Pedidos
-                .Include(p => p.Itens)
-                .ThenInclude(i => i.Produto)
-                .FirstOrDefault(p => p.Id == id);
+                           .Include(p => p.Cliente)   // Inclui o Cliente
+                           .Include(p => p.Produto)   // Inclui o Produto
+                           .FirstOrDefault(p => p.Id == id);
         }
 
         public List<Pedido> GetAll()
@@ -44,12 +47,12 @@ namespace ControleClientes.Repository
 
         public void Delete(int id)
         {
-            var pedido = GetById(id);
-            if (pedido != null)
-            {
-                _context.Pedidos.Remove(pedido);
-                _context.SaveChanges();
-            }
+            //var pedido = GetById(id);
+            //if (pedido != null)
+            //{
+            //    _context.Pedidos.Remove(pedido);
+            //    _context.SaveChanges();
+            //}
         }
     }
 }

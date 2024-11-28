@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "2Ovic2RdblI=",
+  "dgSpecHash": "6mGDH8kYMHY=",
   "success": true,
-  "projectFilePath": "C:\\Users\\forge\\Desktop\\ESTUDOS\\ControleClientesV4.4-CEP\\ControleClientes\\ControleClientes.csproj",
+  "projectFilePath": "C:\\Users\\forge\\Desktop\\ESTUDOS\\v2\\ControleClientes\\ControleClientes.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\forge\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\forge\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\6.0.0\\microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",
@@ -30,6 +30,8 @@
     "C:\\Users\\forge\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
     "C:\\Users\\forge\\.nuget\\packages\\npgsql\\8.0.4\\npgsql.8.0.4.nupkg.sha512",
     "C:\\Users\\forge\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\8.0.8\\npgsql.entityframeworkcore.postgresql.8.0.8.nupkg.sha512",
+    "C:\\Users\\forge\\.nuget\\packages\\oxyplot.core\\2.2.0\\oxyplot.core.2.2.0.nupkg.sha512",
+    "C:\\Users\\forge\\.nuget\\packages\\oxyplot.windowsforms\\2.2.0\\oxyplot.windowsforms.2.2.0.nupkg.sha512",
     "C:\\Users\\forge\\.nuget\\packages\\system.codedom\\4.4.0\\system.codedom.4.4.0.nupkg.sha512",
     "C:\\Users\\forge\\.nuget\\packages\\system.collections.immutable\\6.0.0\\system.collections.immutable.6.0.0.nupkg.sha512",
     "C:\\Users\\forge\\.nuget\\packages\\system.composition\\6.0.0\\system.composition.6.0.0.nupkg.sha512",

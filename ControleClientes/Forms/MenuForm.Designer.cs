@@ -50,7 +50,7 @@
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Padding = new Padding(7, 3, 0, 3);
-            menuStrip1.Size = new Size(947, 30);
+            menuStrip1.Size = new Size(1045, 30);
             menuStrip1.TabIndex = 1;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -65,21 +65,21 @@
             // clienteToolStripMenuItem
             // 
             clienteToolStripMenuItem.Name = "clienteToolStripMenuItem";
-            clienteToolStripMenuItem.Size = new Size(224, 26);
+            clienteToolStripMenuItem.Size = new Size(145, 26);
             clienteToolStripMenuItem.Text = "Clientes";
             clienteToolStripMenuItem.Click += clienteToolStripMenuItem_Click;
             // 
             // cidadesToolStripMenuItem
             // 
             cidadesToolStripMenuItem.Name = "cidadesToolStripMenuItem";
-            cidadesToolStripMenuItem.Size = new Size(224, 26);
+            cidadesToolStripMenuItem.Size = new Size(145, 26);
             cidadesToolStripMenuItem.Text = "Cidades";
             cidadesToolStripMenuItem.Click += cidadesToolStripMenuItem_Click;
             // 
             // pedidosToolStripMenuItem1
             // 
             pedidosToolStripMenuItem1.Name = "pedidosToolStripMenuItem1";
-            pedidosToolStripMenuItem1.Size = new Size(224, 26);
+            pedidosToolStripMenuItem1.Size = new Size(145, 26);
             pedidosToolStripMenuItem1.Text = "Produto";
             pedidosToolStripMenuItem1.Click += pedidosToolStripMenuItem1_Click;
             // 
@@ -128,7 +128,7 @@
             // pedidosToolStripMenuItem
             // 
             pedidosToolStripMenuItem.Name = "pedidosToolStripMenuItem";
-            pedidosToolStripMenuItem.Size = new Size(224, 26);
+            pedidosToolStripMenuItem.Size = new Size(144, 26);
             pedidosToolStripMenuItem.Text = "Pedidos";
             pedidosToolStripMenuItem.Click += pedidosToolStripMenuItem_Click;
             // 
@@ -136,7 +136,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(947, 615);
+            ClientSize = new Size(1045, 696);
             Controls.Add(menuStrip1);
             IsMdiContainer = true;
             MainMenuStrip = menuStrip1;

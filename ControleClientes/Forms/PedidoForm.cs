@@ -5,168 +5,187 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using OxyPlot;
+using OxyPlot.Series;
 
 namespace ControleClientes
 {
     public partial class PedidoForm : Form
     {
-        private Pedido pedido = new Pedido();
-        private readonly PedidoRepository _pedidoRepository;
-        private readonly ProdutoRepository _produtoRepository;
         private readonly ClienteRepository _clienteRepository;
+        private readonly ProdutoRepository _produtoRepository;  // Supondo que você tenha um ProdutoRepository
+        private readonly PedidoRepository _pedidoRepository;
+
+        private Pedido pedidoSelecionado;
 
         public PedidoForm()
         {
             InitializeComponent();
             _pedidoRepository = new PedidoRepository(new ApplicationDBContext());
-            _produtoRepository = new ProdutoRepository(new ApplicationDBContext());
             _clienteRepository = new ClienteRepository();
+            _produtoRepository = new ProdutoRepository(new ApplicationDBContext());  // Instanciando o ProdutoRepository
+            pedidoSelecionado = new Pedido();
+            CarregarDados();
+            LoadData();
+            AdicionarGrafico();
         }
-
-        // Carrega a aba de consulta com os pedidos
-        private void PedidoForm_Load(object sender, EventArgs e)
+        private void AdicionarGrafico()
         {
-            CarregarClientes();   // Carregar clientes no comboBox
-            CarregarPedidos();    // Carregar pedidos existentes na grid
-            CarregarStatus();     // Carregar status no comboBox
+            var plotModel = new PlotModel { Title = "Status dos Pedidos" };
+
+            var pieSeries = new PieSeries
+            {
+                StrokeThickness = 1,
+                //Fill = OxyColor.FromRgb(255, 255, 255),
+                AngleSpan = 360,
+                StartAngle = 0
+            };
+
+            // Adicionar dados ao gráfico de pizza
+            pieSeries.Slices.Add(new PieSlice("Pendente", 5) { IsExploded = true });
+            pieSeries.Slices.Add(new PieSlice("Concluído", 10));
+            pieSeries.Slices.Add(new PieSlice("Cancelado", 3));
+
+            plotModel.Series.Add(pieSeries);
+
+            var plotView = new OxyPlot.WindowsForms.PlotView
+            {
+                Dock = DockStyle.Fill,
+                Model = plotModel
+            };
+
+            this.Controls.Add(plotView); // Adiciona o gráfico ao formulário
         }
 
-        // Carregar os clientes na comboBox do pedido
-        private void CarregarClientes()
+        private void CarregarDados()
         {
             cmbBoxCliente.DataSource = _clienteRepository.ReadAll();
             cmbBoxCliente.DisplayMember = "Nome";
             cmbBoxCliente.ValueMember = "Id";
+
+            cmbBoxProduto.DataSource = _produtoRepository.ReadAll();
+            cmbBoxProduto.DisplayMember = "Nome";
+            cmbBoxProduto.ValueMember = "Id";
+
+            cmbBoxStatus.DataSource = new List<string> { "Pendente", "Concluído", "Cancelado" };
         }
 
-        // Carregar os status na comboBox do pedido
-        private void CarregarStatus()
-        {
-            cmbBoxStatus.Items.Add("Pendente");
-            cmbBoxStatus.Items.Add("Concluído");
-            cmbBoxStatus.Items.Add("Cancelado");
-        }
-
-        // Carregar os pedidos na grid de consulta
-        private void CarregarPedidos()
-        {
-            //gridPedidos.DataSource = _pedidoRepository.ReadAll().ToList();   // Consultar todos os pedidos
-        }
-
-        // Limpar os campos no formulário
-        private void LimparCampos()
+        // Método para limpar os campos de cadastro
+        private void LimparCamposCadastro()
         {
             cmbBoxCliente.SelectedIndex = -1;
+            cmbBoxProduto.SelectedIndex = -1;
+            dateTimePickerDataPedido.Value = DateTime.Now;
             cmbBoxStatus.SelectedIndex = -1;
-            gridItensPedido.Rows.Clear();
-            pedido = new Pedido();
         }
 
-        // Atualizar a grid de itens no pedido
-        private void AtualizarGridItens()
+        // Método para preencher os campos do pedido na tela de cadastro
+        private void PreencherCamposCadastro()
         {
-            gridItensPedido.Rows.Clear();
-            foreach (var item in pedido.Itens)
-            {
-                gridItensPedido.Rows.Add(item.Produto.Nome, item.Quantidade, item.PrecoUnitario, item.Total);
-            }
+            cmbBoxCliente.SelectedValue = pedidoSelecionado.ClienteId;
+            cmbBoxProduto.SelectedValue = pedidoSelecionado.ProdutoId;
+            dateTimePickerDataPedido.Value = pedidoSelecionado.DataPedido;
+            cmbBoxStatus.SelectedItem = pedidoSelecionado.Status;
         }
-
         private void btnNovoProd_Click(object sender, EventArgs e)
         {
-            LimparCampos();  // Limpa os campos
-            tabPedido.SelectTab(tabPedidoCadastro);  // Seleciona a aba de cadastro
+            pedidoSelecionado = new Pedido(); // Limpar a seleção para um novo pedido
+            LimparCamposCadastro();
+            tabPedido.SelectTab(tabPedidoCadastro);
         }
 
-        //private void btnAddItem_Click_1(object sender, EventArgs e)
-        //{
-        //    // Carregar produtos disponíveis do banco de dados
-
-        //    var produtos = _produtoRepository.ReadAll();  // Retorna a lista de produtos
-
-        //    // Verificar se a lista de produtos está vazia ou nula
-        //    if (produtos == null || !produtos.Any())
-        //    {
-        //        MessageBox.Show("Não há produtos disponíveis no banco de dados.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-        //        return;
-        //    }
-
-        //    // Abrir o formulário de item com os produtos carregados
-        //    using (var itemForm = new ItemForm(produtos))  // Passa os produtos para o ItemForm
-        //    {
-        //        if (itemForm.ShowDialog() == DialogResult.OK)  // Se o item for salvo
-        //        {
-        //            var novoItem = itemForm.ItemSelecionado;  // Recupera o item selecionado
-        //            pedido.Itens.Add(novoItem);  // Adiciona o item à lista do pedido
-        //            AtualizarGridItens();  // Atualiza a grid de itens
-        //        }
-        //    }
-        //}
-
-        private void btnAddItem_Click_1(object sender, EventArgs e)
+        // Salva o pedido
+        private void btnSalvarPedido_Click(object sender, EventArgs e)
         {
-            // Carregar produtos disponíveis do banco de dados
-            var produtos = _produtoRepository.ReadAll();  // Retorna a lista de produtos
-
-            if (produtos == null || !produtos.Any())
+            // Verifica se todos os campos obrigatórios foram preenchidos
+            if (cmbBoxCliente.SelectedItem == null || cmbBoxProduto.SelectedItem == null || cmbBoxStatus.SelectedItem == null)
             {
-                MessageBox.Show("Não há produtos disponíveis no banco de dados.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Preencha todos os campos.");
                 return;
             }
 
-            // Armazena a lista de produtos na variável estática
-            ItemForm.ProdutosDisponiveis = produtos.ToList();  // Passa a lista estática de produtos
+            // Preenche os dados do pedido
+            pedidoSelecionado.ClienteId = (int)cmbBoxCliente.SelectedValue;
+            pedidoSelecionado.ProdutoId = (int)cmbBoxProduto.SelectedValue;
+            pedidoSelecionado.DataPedido = dateTimePickerDataPedido.Value.ToUniversalTime();  // Agora a data estará em UTC
+            pedidoSelecionado.Status = cmbBoxStatus.SelectedItem.ToString();
+            pedidoSelecionado.Quantidade = (int)numericUpDownQuantidade.Value; // Assume que você tem um campo para quantidade no formulário
 
-            using (var itemForm = new ItemForm())  // Não é necessário passar produtos como parâmetro
+            // Verifica se o pedido já existe (se o pedido foi carregado via 'Visualizar')
+            if (pedidoSelecionado.Id > 0)  // Pedido já existe, portanto é um update
             {
-                if (itemForm.ShowDialog() == DialogResult.OK)
-                {
-                    var novoItem = itemForm.ItemSelecionado;
-                    pedido.Itens.Add(novoItem);
-                    AtualizarGridItens();
-                }
+                _pedidoRepository.Update(pedidoSelecionado);  // Chama o repositório para atualizar o pedido no banco
+                MessageBox.Show("Pedido atualizado com sucesso!");
             }
+            else
+            {
+                // Pedido não existe (novo pedido)
+                _pedidoRepository.Create(pedidoSelecionado);  // Cria um novo pedido
+                MessageBox.Show("Pedido salvo com sucesso!");
+            }
+
+            // Limpar os campos após salvar
+            LimparCamposCadastro();
+            tabPedido.SelectTab(tabPedidoConsulta);
         }
 
 
-        private void btnCancelarPedido_Click_1(object sender, EventArgs e)
+
+        // Método para atualizar o DataGridView de produtos
+        private void AtualizarGridProdutos()
         {
-            tabPedido.SelectTab(tabPedidoConsulta);  // Volta para a aba de consulta
 
         }
 
+        // Cancela o pedido
+        private void btnCancelarPedido_Click(object sender, EventArgs e)
+        {
+            tabPedido.SelectTab(tabPedidoConsulta);
+        }
+
+        // Método de visualização de pedidos (aba de consulta)
         private void btnVisualizar_Click(object sender, EventArgs e)
         {
-            if (gridPedidos.SelectedRows.Count == 0)
+            if (gridPedidos.SelectedRows.Count > 0)
             {
-                MessageBox.Show("Selecione um pedido para visualizar.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+                // Pega o Id do pedido selecionado na grid
+                int id = (int)gridPedidos.SelectedRows[0].Cells[0].Value;
 
-            var pedidoSelecionado = (Pedido)gridPedidos.SelectedRows[0].DataBoundItem;
-            pedido = pedidoSelecionado;
-            AtualizarGridItens();  // Atualiza a grid de itens com os itens do pedido selecionado
-            tabPedido.SelectTab(tabPedidoCadastro);  // Abre a aba de cadastro
+                // Busca o pedido no repositório usando o Id
+                pedidoSelecionado = _pedidoRepository.GetById(id);
+
+                // Preenche os campos do formulário com os dados do pedido
+                cmbBoxCliente.Text = pedidoSelecionado.Cliente.Nome;
+                cmbBoxProduto.Text = pedidoSelecionado.Produto.Nome;
+                dateTimePickerDataPedido.Value = pedidoSelecionado.DataPedido;  // A data pode ser no formato UTC
+                cmbBoxStatus.Text = pedidoSelecionado.Status;
+                numericUpDownQuantidade.Value = pedidoSelecionado.Quantidade;
+
+                // Abre a aba de cadastro para edição
+                tabPedido.SelectTab(tabPedidoCadastro);
+            }
+            else
+            {
+                MessageBox.Show("Selecione um pedido na lista.");
+            }
         }
 
-        private void btnSalvarPedido_Click_1(object sender, EventArgs e)
+        private void PedidoForm_Load(object sender, EventArgs e)
         {
-            if (cmbBoxCliente.SelectedIndex == -1 || pedido.Itens.Count == 0)
+
+        }
+        private void LoadData()
+        {
+            gridPedidos.Rows.Clear();
+            foreach (var pedido in _pedidoRepository.ReadAll())
             {
-                MessageBox.Show("Por favor, selecione um cliente e adicione ao menos um item ao pedido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                gridPedidos.Rows.Add(pedido.Id, pedido.ClienteId, pedido.DataPedido, pedido.Status);
             }
+        }
 
-            // Preenche as propriedades do pedido
-            pedido.ClienteId = (int)cmbBoxCliente.SelectedValue;
-            pedido.Status = cmbBoxStatus.SelectedItem.ToString();
-            pedido.DataPedido = DateTime.Now;  // Atribui a data atual do pedido
+        private void tabPedidoConsulta_Click(object sender, EventArgs e)
+        {
 
-            _pedidoRepository.Create(pedido);  // Salva o pedido no banco de dados
-            MessageBox.Show("Pedido salvo com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-            CarregarPedidos();  // Atualiza a grid com os pedidos
-            tabPedido.SelectTab(tabPedidoConsulta);  // Volta para a aba de consulta
         }
     }
 }

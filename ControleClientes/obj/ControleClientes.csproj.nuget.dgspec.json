@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\forge\\Desktop\\ESTUDOS\\ControleClientesV4.4-CEP\\ControleClientes\\ControleClientes.csproj": {}
+    "C:\\Users\\forge\\Desktop\\ESTUDOS\\v2\\ControleClientes\\ControleClientes.csproj": {}
   },
   "projects": {
-    "C:\\Users\\forge\\Desktop\\ESTUDOS\\ControleClientesV4.4-CEP\\ControleClientes\\ControleClientes.csproj": {
+    "C:\\Users\\forge\\Desktop\\ESTUDOS\\v2\\ControleClientes\\ControleClientes.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\forge\\Desktop\\ESTUDOS\\ControleClientesV4.4-CEP\\ControleClientes\\ControleClientes.csproj",
+        "projectUniqueName": "C:\\Users\\forge\\Desktop\\ESTUDOS\\v2\\ControleClientes\\ControleClientes.csproj",
         "projectName": "ControleClientes",
-        "projectPath": "C:\\Users\\forge\\Desktop\\ESTUDOS\\ControleClientesV4.4-CEP\\ControleClientes\\ControleClientes.csproj",
+        "projectPath": "C:\\Users\\forge\\Desktop\\ESTUDOS\\v2\\ControleClientes\\ControleClientes.csproj",
         "packagesPath": "C:\\Users\\forge\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\forge\\Desktop\\ESTUDOS\\ControleClientesV4.4-CEP\\ControleClientes\\obj\\",
+        "outputPath": "C:\\Users\\forge\\Desktop\\ESTUDOS\\v2\\ControleClientes\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\forge\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -59,6 +59,10 @@
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
               "version": "[8.0.8, )"
+            },
+            "OxyPlot.WindowsForms": {
+              "target": "Package",
+              "version": "[2.2.0, )"
             }
           },
           "imports": [
